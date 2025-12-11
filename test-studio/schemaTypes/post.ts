@@ -11,6 +11,16 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'image',
+      title: 'Hoisted Image',
+      type: 'figure',
+    }),
+    defineField({
+      name: 'inlineImage',
+      title: 'InlineImage',
+      type: 'image',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
