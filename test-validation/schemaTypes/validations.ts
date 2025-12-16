@@ -1,5 +1,5 @@
 import { type DocumentId, getPublishedId } from '@sanity/id-utils';
-import type { CustomValidator, Rule } from '@sanity/types';
+import type { CustomValidator, Rule, SlugIsUniqueValidator } from '@sanity/types';
 import groq from 'groq';
 
 // import { apiVersion } from '../config';
@@ -46,6 +46,32 @@ const isUniqueSlugQuery = groq`
     && !sanity::versionOf($publishedId)
     && lower(slug.current) in $slugs
   ][0]._id)`;
+
+export const isUniqueAcrossAllDocuments: SlugIsUniqueValidator = async (
+  slug,
+  { document, getClient }
+) => {
+  const client = getClient({ apiVersion }).withConfig({ perspective: 'raw' });
+  const id = document?._id as DocumentId | undefined;
+
+  if (!id || !slug?.current) {
+    return true;
+  }
+
+  const publishedId = getPublishedId(id);
+
+  const isSlugUnique = await client.fetch<boolean>(isUniqueSlugQuery, {
+    publishedId,
+    type: document?._type,
+    slugs: createSlugVariants(slug.current.toLowerCase()),
+  });
+
+  if (!isSlugUnique) {
+    return false;
+  }
+
+  return true;
+};
 
 export const isSlugUniqueAcrossAllDocuments: CustomValidator<Slug> = async (
   slug,
@@ -128,7 +154,7 @@ const validateHasIncorrectStructure: CustomValidator<Slug> = async (slug) => {
   return true;
 };
 
-export const slugValidations = (rule: Rule) => [
+export const slugValidations = (rule: any) => [
   rule
     .required()
     .custom(isSlugUniqueAcrossAllDocuments)

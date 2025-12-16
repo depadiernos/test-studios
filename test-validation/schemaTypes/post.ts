@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import { isSlugUniqueAcrossAllDocuments, slugValidations } from './validations'
+import { isUniqueAcrossAllDocuments, slugValidations } from './validations'
 
 export default defineType({
   name: 'post',
@@ -18,8 +18,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        isUnique: isSlugUniqueAcrossAllDocuments
-        ,
+        isUnique: isUniqueAcrossAllDocuments,
       },
       validation: slugValidations,
     }),
