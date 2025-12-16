@@ -1,0 +1,40 @@
+{
+  "name": "test-validation",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/id-utils": "^1.0.0",
+    "@sanity/types": "^5.0.0",
+    "@sanity/vision": "^5.0.0",
+    "groq": "^5.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sanity": "^5.0.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@types/react": "^19.2.7",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  }
+}
