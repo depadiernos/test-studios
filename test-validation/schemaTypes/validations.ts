@@ -157,7 +157,7 @@ const validateHasIncorrectStructure: CustomValidator<Slug> = async (slug) => {
 export const slugValidations = (rule: any) => [
   rule
     .required()
-    .custom(isSlugUniqueAcrossAllDocuments)
+    //.custom(isSlugUniqueAcrossAllDocuments)
     .custom(validateIsLowerCase)
     .custom(validateHasIncorrectStructure)
     .custom(validateHasSpecialSymbols)
